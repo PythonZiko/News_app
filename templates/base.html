@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title> {% block title %} {% endblock title %} </title>
+  </head>
+  <body>
+
+    <!-- Start Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">NewsApp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                
+                {% for i in categoriest %}
+                <!-- Kategoriya -->
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'category-detail' i.slug %}">{{i.name}}</a>
+                  </li>
+                <!-- Kategoriya end -->
+                {% endfor %}
+
+  
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Zonalar
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  {% for i in zones %}
+                    <li><a class="dropdown-item" href="{% url 'zone-detail' i.slug %}">{{i.name}}</a></li>
+                  {% endfor %} 
+                  </ul>
+                </li>
+              </ul>
+              <form method="get" action="{% url 'index' %}" class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Qidirish" aria-label="Qidirish" name="q" value="{{q}}">
+                <button class="btn btn-outline-success" type="submit">Qidirish</button>
+              </form>
+            </div>
+          </div>
+        </nav>
+        <!-- Stop Navbar -->
+      <!-- Main Page Start -->
+      <div class="container">
+          <div class="row mt-5">
+              <div class="col-8 me-5">
+                
+                
+                {% block content %}
+                  
+                {% endblock content %}
+                   
+
+            </div>
+
+            <div class="col-3">
+                <h3>So'ngi yangiliklar</h3>
+
+                <ul class="list-group list-group-flush">
+                   
+                   {% for new in news %}
+                   <!-- So'ngi yangilk start -->
+                      <li class="list-group-item">
+                        <span class="text-muted"> <i class="fa-solid fa-calendar-days"></i>{{new.created|date:"G:i"}}</span> <br>
+                        <a style="text-decoration: none; color: black;" href="{% url 'new-detail' new.id %}">{{new.title}}</a></li>
+
+                  <!-- So'ngi yangilk stop -->
+                   {% endfor %}
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Main Page Stop -->
+
+    <div class="container">
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">AsosiySahifa</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Xususiyatlari</a><li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Narxlash</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Tez-tez so'raladigan savollar</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Haqida</a></li>
+        </ul>
+        <p class="text-center text-muted"><a class="text-muted" style="text-decoration: none;" href="{% url 'login' %}">&copy; 2024 A'zamov TM, Inc</a></p>
+      </footer>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>

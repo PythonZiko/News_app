@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    {{category.name}} ga oid yangiliklar
+{% endblock title %}
+
+
+
+{% block content %}
+    <h3> {{category.name}} ga oid yangiliklar</h3>
+
+    {% for new in category_news %}
+<!-- Bittta yangilik start -->
+<div class="card mb-3" >
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img style="height: 300px; object-fit: cover;" src="{{new.image.url}}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{new.title}}</h5>
+        <p class="card-text">{{new.description}}</p>
+        <p class="card-text"><small class="text-muted"> <i class="fa-solid fa-calendar-days"></i> {{new.created}} 
+          
+          {% if new.created != new.updated %}
+          <i class="fa-solid fa-pen"></i>
+          {% endif %}
+            
+        </small></p>
+        <a class="btn btn-primary" href="{% url 'new-detail' new.id %}">Ko'proq o'qish</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Bittta yangilik stop -->
+{% endfor %}
+{% endblock content %}
+    
+    

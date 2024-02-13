@@ -1,0 +1,72 @@
+{% extends 'admin_base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+  Zonalar ro'yhati
+{% endblock title %}
+  
+
+
+{% block content %}
+<div class="container mt-5">
+  <h2>Zonalar ro'yhati</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">№</th>
+        <th scope="col">Nomi</th>
+        <th scope="col">Slug</th>
+        <th scope="col">Tugmalar</th>
+      </tr>
+    </thead>
+    <tbody>
+        
+        {% for i in zones %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{i.name}}</td>
+            <td>{{i.slug}}</td>
+            <td>
+                <a class="btn badge rounded-pil bg-warning" href="{% url 'zone-update' i.id %}">Tahrirlash</a>
+                <button type="button" class="btn badge rounded-pil bg-danger" data-bs-toggle="modal" data-bs-target="#modal-{{forloop.counter}}">
+                  O'chirish
+                </button>
+            </td>
+          </tr>
+          <!-- Button trigger modal -->
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="modal-{{forloop.counter}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">O'chirish: {{i.name}}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Siz haqiqatdan ham ushbu zonani uchirib yubormoqchimisiz?. Bu holatda shu zonaga tegishli yangiliklar ham o'chib ketishi mumkun.
+            </div>
+            <form class="modal-footer", method="post" action="{% url 'zone-delete' i.id %}">
+               {% csrf_token %}
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-danger">O'chirish</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+        {% endfor %}
+            
+    </tbody>
+  </table>
+  <a href="{% url 'zone-create'  %}" class="btn btn-primary"> Hudud yaratish </a>
+
+  </form>
+</div>
+
+{% endblock content %}
+  

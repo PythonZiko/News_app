@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}
+    {{new.title}}
+{% endblock title %}
+    
+{% block content %}
+    
+    <p class="text-muted"> <small> 
+        <i class="fa-solid fa-calendar-days"></i>{{new.created}} 
+        <i class="fa-solid fa-eye"></i>{{hits}}
+        
+        
+        {% if new.author == request.user %}
+        | <a href="{% url 'new-update' new.id %}">Tahrirlash</a>  
+        {% endif %}
+            
+    </small></p>
+
+    <h4> {{new.title}} </h4>
+
+    <p> <strong>{{new.description}}</strong> </p>
+
+    <img src="{{new.image.url}}" class="w-100" >
+
+    <p class="mt-3">{{new.body | safe}}</p>
+
+    <hr>
+
+    <p> <small class="text-muted">{{new.hashtags}}</small> </p>
+
+{% endblock content %}
+    

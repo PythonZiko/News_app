@@ -1,0 +1,25 @@
+{% extends 'admin_base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+<h2>Tahrirlash: {{new.title}}</h2>
+{% endblock title %}
+
+
+{% block content %}
+<div class="container mt-5">
+  <h2>Tahrirlash: {{new.title}}</h2>
+
+  <form method="post" enctype="multipart/form-data" >
+    {% csrf_token %}
+    {{ form.media}}
+    {{form|crispy}}
+
+    <button type="submit" class="btn btn-primary mt-3 mb-5">Saqlash</button>
+
+  </form>
+</div>
+{% endblock content %}
+  
+  
