@@ -127,7 +127,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT =  str(BASE_DIR.joinpath('staticfiles'))
-STATICFILES_DIRS = [str(BASE_DIR.joinpath('static')),]
+# STATICFILES_DIRS = [str(BASE_DIR.joinpath('static')),]
 
 # STATIC_ROOT = BASE_DIR / 'static'
 MEDIA_URL = 'media/'
